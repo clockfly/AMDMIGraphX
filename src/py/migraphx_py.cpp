@@ -183,7 +183,7 @@ PYBIND11_MODULE(migraphx, m)
 
     m.def("parse_tf",
           [](const std::string& filename, bool is_nhwc, unsigned int batch_size) {
-              return migraphx::parse_tf(filename, migraphx::tf_options{is_nhwc, batch_size});
+              //return migraphx::parse_tf(filename, migraphx::tf_options{is_nhwc, batch_size});
           },
           "Parse tf protobuf (default format is nhwc)",
           py::arg("filename"),

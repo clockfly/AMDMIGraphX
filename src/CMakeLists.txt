@@ -47,7 +47,7 @@ set(PACKAGE_DEPENDS)
 add_subdirectory(api)
 add_subdirectory(driver)
 add_subdirectory(onnx)
-add_subdirectory(tf)
+#add_subdirectory(tf)
 
 add_subdirectory(py)
 add_subdirectory(targets/cpu)

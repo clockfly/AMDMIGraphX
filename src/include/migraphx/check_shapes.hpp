@@ -7,6 +7,24 @@
 #include <migraphx/config.hpp>
 #include <algorithm>
 
+#include <stdlib.h>
+
+/* Paste this on the file you want to debug. */
+#include <stdio.h>
+#include <execinfo.h>
+inline void print_trace(void) {
+    char **strings;
+    size_t i, size;
+    enum Constexpr { MAX_SIZE = 1024 };
+    void *array[MAX_SIZE];
+    size = backtrace(array, MAX_SIZE);
+    strings = backtrace_symbols(array, size);
+    for (i = 0; i < size; i++)
+        printf("%s\n", strings[i]);
+    puts("");
+    free(strings);
+}
+
 namespace migraphx {
 inline namespace MIGRAPHX_INLINE_NS {
 
@@ -127,8 +145,23 @@ struct check_shapes
 
     const check_shapes& standard() const
     {
-        if(!this->all_of([](const shape& s) { return s.standard(); }))
+        if(!this->all_of([](const shape& s) {
+
+   for (auto i : s.lens()) {
+     std::cout << i << " ";
+   }
+
+   for (auto j : s.strides()) {
+     std::cout << j << " ";
+   }
+   std::cout << std::endl;
+
+ return s.standard(); 
+
+}))  {
+        print_trace();
             MIGRAPHX_THROW(prefix() + "Shapes are not in standard layout");
+}
         return *this;
     }
 

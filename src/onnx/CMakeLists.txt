@@ -1,4 +1,19 @@
+set(Protobuf_PREFIX_PATH
+    "/workspace/protobuf-build/include"
+    "/workspace/protobuf-build/lib"
+    "/workspace/protobuf-build/bin"
+)
+list(APPEND CMAKE_PREFIX_PATH "${Protobuf_PREFIX_PATH}")
+message(STATUS "============ CMAKE_PREFIX_PATH is: ${CMAKE_PREFIX_PATH}")
+
+set(protobuf_MODULE_COMPATIBLE ON CACHE BOOL "")
+
 find_package(Protobuf REQUIRED)
+message(STATUS "=========== Protobuf_INCLUDE_DIR is: ${Protobuf_INCLUDE_DIR}")
+message(STATUS "=========== Protobuf_INCLUDE_DIRS is: ${Protobuf_INCLUDE_DIRS}")
+include_directories(${Protobuf_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS onnx.proto)
 add_library(onnx-proto STATIC ${PROTO_SRCS})

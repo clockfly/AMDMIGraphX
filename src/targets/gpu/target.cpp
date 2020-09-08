@@ -56,7 +56,8 @@ std::vector<pass> target::get_passes(migraphx::context& gctx, const compile_opti
         dead_code_elimination{},
         eliminate_common_subexpression{},
         dead_code_elimination{},
-        simplify_algebra{},
+       // Disable this for unknown error 
+       // simplify_algebra{},
         dead_code_elimination{},
         auto_contiguous{},
         simplify_reshapes{},

@@ -1,5 +1,6 @@
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
+#include <google/protobuf/io/zero_copy_stream.h>
 #include <onnx.pb.h>
 #include <iostream>
 #include <fstream>
@@ -21,6 +22,7 @@
 namespace migraphx {
 inline namespace MIGRAPHX_INLINE_NS {
 
+namespace io = google::protobuf::io;
 namespace onnx = onnx_for_migraphx;
 
 struct onnx_parser
@@ -2317,7 +2319,8 @@ struct onnx_parser
     void parse_from(std::istream& is)
     {
         onnx::ModelProto model;
-        if(model.ParseFromIstream(&is))
+	io::ZeroCopyInputStream* input = new io::IstreamInputStream(&is);
+        if(model.ParseFromZeroCopyStream(input))
         {
             if(model.has_graph())
             {
@@ -2328,6 +2331,7 @@ struct onnx_parser
         {
             MIGRAPHX_THROW("Failed reading onnx file.");
         }
+	delete input;
     }
 
     void parse_from(const void* data, std::size_t size)

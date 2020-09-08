@@ -76,7 +76,7 @@ struct loader
             }
             else if(file_type == "tf")
             {
-                p = parse_tf(file, tf_options{is_nhwc, batch});
+                //p = parse_tf(file, tf_options{is_nhwc, batch});
             }
         }
         else
