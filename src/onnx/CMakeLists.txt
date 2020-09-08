@@ -1,3 +1,4 @@
+set (Protobuf_USE_STATIC_LIBS ON)
 find_package(Protobuf REQUIRED)
 
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS onnx.proto)
