@@ -954,11 +954,15 @@ void simplify_algebra::apply(program& p) const
                             find_div_const{},
                             find_sub_const{},
                             find_rsqrt{},
-                            find_concat_op{},
-                            find_split_concat{},
-                            find_splits{},
-                            find_split_reshape{},
-                            find_split_transpose{});
+                            find_concat_op{}
+                           // ,
+                           // Disable find_split as it sometimes lead to strange shape 
+                           // change.
+                           // find_split_concat{},
+                           // find_splits{},
+                           // find_split_reshape{},
+                           // find_split_transpose{}
+                           );
         dead_code_elimination{}.apply(p);
     }
 }
